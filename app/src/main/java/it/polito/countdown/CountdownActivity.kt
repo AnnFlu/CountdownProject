@@ -97,6 +97,7 @@ class CountdownActivity : AppCompatActivity(){
     }
 
     private fun setTimer(s: Int, m:Int, h:Int) {
+
         timeStart=((s+m*60+h*60*60)*1000).toLong()
         timeRemaining=timeStart
         updateTimerTextView(timeStart)
@@ -145,9 +146,9 @@ class CountdownActivity : AppCompatActivity(){
     }
 
     private fun updateTimerTextView(secondsRemaining: Long) {
-        val minutes = secondsRemaining / 60000
         val seconds = (secondsRemaining % 60000) / 1000
         val hours = secondsRemaining / 3600000
+        val minutes = (secondsRemaining / 60000)%60
         val timeString = String.format("%02d:%02d:%02d",hours, minutes, seconds)
 
         textViewSec.text = timeString
