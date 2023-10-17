@@ -66,9 +66,13 @@ class CountdownActivity : AppCompatActivity(){
             var min=numPickerMin.value
             var h=numPickerHour.value
 
-            visibleTimer()
 
             setTimer(sec, min, h)
+            if(timeRemaining>0){
+                startTimer()
+                visibleTimer()
+            }
+
         }
 
         numPickerHour.minValue = 0
@@ -114,7 +118,7 @@ class CountdownActivity : AppCompatActivity(){
 
                     updateTimerTextView(timeRemaining)
                     timeRemaining=timeRemaining-1000
-                    //var percentage= (timeRemaining/timeStart)*100
+
                 }
             }
 
@@ -129,10 +133,14 @@ class CountdownActivity : AppCompatActivity(){
                 b.text="Start"
             }
         }
-        timer.start()
+        if(timeRemaining>0){
+            timer.start()
+            b.text="Pause"
+        }
+        if(!timeRunning){
+            timeRunning=true
+        }
 
-        timeRunning=true
-        b.text="Pause"
     }
 
     private fun pauseTimer() {

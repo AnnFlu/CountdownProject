@@ -133,7 +133,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/blue_rounded_button"
-        android:text="Set timer"
+        android:text="Start"
         android:textAllCaps="false"
         android:textColor="@color/lightGrey"
         android:textSize="20sp"
