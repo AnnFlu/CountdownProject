@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lightGrey">#EAEAEA</color>
+    <color name="lightGreyTransparent">#40EAEAEA</color>
+    <color name="sfondo">#121C39</color>
+    <color name="sfondoPicker">#172448</color>
+    <color name="lightGreyPressed">#A3A2A2</color>
+    <color name="blueButton">#294080</color>
+    <color name="blueButtonPressed">#1B2951</color>
 </resources>

@@ -22,11 +22,12 @@ class CountdownActivity : AppCompatActivity(){
     lateinit var timer : CountDownTimer
     lateinit var circle : ProgressBar
     lateinit var text : TextView
-    lateinit var numPickerHour : NumberPicker
-    lateinit var numPickerMin : NumberPicker
-    lateinit var numPickerSec : NumberPicker
+    lateinit var numPickerHour : com.shawnlin.numberpicker.NumberPicker
+    lateinit var numPickerMin : com.shawnlin.numberpicker.NumberPicker
+    lateinit var numPickerSec : com.shawnlin.numberpicker.NumberPicker
     lateinit var layoutPicker : LinearLayout
     lateinit var layoutTimer : TableLayout
+    lateinit var labels : LinearLayout
 
     lateinit var b : Button
     lateinit var r : Button
@@ -49,6 +50,7 @@ class CountdownActivity : AppCompatActivity(){
         numPickerSec=findViewById(R.id.numPickerSec)
         layoutPicker=findViewById(R.id.settingTimer)
         layoutTimer=findViewById(R.id.timerLayout)
+        labels=findViewById(R.id.pickersLabels)
 
         r.setOnClickListener{resetTimer()}
         b.setOnClickListener {
@@ -84,14 +86,14 @@ class CountdownActivity : AppCompatActivity(){
     private fun visibleTimer(){
         layoutPicker.visibility=View.INVISIBLE
         setTimerButton.visibility=View.INVISIBLE
-
+        labels.visibility=View.INVISIBLE
         layoutTimer.visibility=View.VISIBLE
     }
 
     private fun visibleSettingTimer(){
         layoutPicker.visibility=View.VISIBLE
         setTimerButton.visibility=View.VISIBLE
-
+        labels.visibility=View.VISIBLE
         layoutTimer.visibility=View.INVISIBLE
 
     }
@@ -114,11 +116,14 @@ class CountdownActivity : AppCompatActivity(){
                     timeRemaining=timeRemaining-1000
                     //var percentage= (timeRemaining/timeStart)*100
                 }
-       }
+            }
 
             override fun onFinish() {
                 timeRunning=false
                 timeRemaining=0
+                numPickerHour.value = 0
+                numPickerSec.value = 0
+                numPickerMin.value = 0
 
                 updateTimerTextView(0)
                 b.text="Start"
