@@ -1,15 +1,20 @@
 package it.polito.countdown
 
+import android.app.Dialog
 import android.app.TimePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.NumberPicker
+import android.widget.PopupWindow
 import android.widget.ProgressBar
 import android.widget.TableLayout
 import android.widget.TextView
@@ -41,6 +46,7 @@ class CountdownActivity : AppCompatActivity(){
 
     lateinit var progressBar : ProgressBar
     lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -115,6 +121,24 @@ class CountdownActivity : AppCompatActivity(){
         progressBar.max=timeStart.toInt()
     }
 
+    private fun popUpMessage(){
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.pop_up)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+       //  val timesUpMessage : TextView = dialog.findViewById(R.id.times_up)
+        val buttonStop : Button = dialog.findViewById(R.id.stop)
+        val buttonReplay : Button = dialog.findViewById(R.id.replay)
+
+        buttonStop.setOnClickListener(){
+           // todo
+        }
+        buttonReplay.setOnClickListener(){
+            // todo
+        }
+        dialog.show()
+    }
 
     private fun startTimer(){
         progressBar.progress = 0 // barra completa
@@ -140,13 +164,14 @@ class CountdownActivity : AppCompatActivity(){
 
                 mediaPlayer.start()
                 mediaPlayer.setLooping(true)
-
+                popUpMessage()
 
             }
         }
         if(timeRemaining>0){
             timer.start()
             b.text="Pause"
+
         }
         if(!timeRunning){
             timeRunning=true
