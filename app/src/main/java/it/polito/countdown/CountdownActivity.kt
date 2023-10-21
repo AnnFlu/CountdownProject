@@ -114,14 +114,14 @@ class CountdownActivity : AppCompatActivity(){
 
 
     private fun startTimer(){
-        progressBar.progress = 0
+        progressBar.progress = 0 // barra completa
         timer = object : CountDownTimer(timeRemaining, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 if(timeRunning && timeRemaining>0){
                     updateTimerTextView(timeRemaining)
                     timeRemaining=timeRemaining-1000
                     progressBar.progress = timeRemaining.toInt()
-
+                        //in base al tempo rimanente la barra sparisce in senso antiorario
                 }
             }
 
