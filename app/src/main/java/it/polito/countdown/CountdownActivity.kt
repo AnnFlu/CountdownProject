@@ -38,6 +38,7 @@ class CountdownActivity : AppCompatActivity(){
 
     private var timeRunning=false
 
+    lateinit var progressBar : ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,6 +52,7 @@ class CountdownActivity : AppCompatActivity(){
         layoutPicker=findViewById(R.id.settingTimer)
         layoutTimer=findViewById(R.id.timerLayout)
         labels=findViewById(R.id.pickersLabels)
+        progressBar=findViewById(R.id.pbTimer)
 
         r.setOnClickListener{resetTimer()}
         b.setOnClickListener {
@@ -107,17 +109,18 @@ class CountdownActivity : AppCompatActivity(){
         timeStart=((s+m*60+h*60*60)*1000).toLong()
         timeRemaining=timeStart
         updateTimerTextView(timeStart)
-
+        progressBar.max=timeStart.toInt()
     }
 
 
     private fun startTimer(){
+        progressBar.progress = 0
         timer = object : CountDownTimer(timeRemaining, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 if(timeRunning && timeRemaining>0){
-
                     updateTimerTextView(timeRemaining)
                     timeRemaining=timeRemaining-1000
+                    progressBar.progress = timeRemaining.toInt()
 
                 }
             }
