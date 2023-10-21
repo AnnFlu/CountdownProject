@@ -1,6 +1,7 @@
 package it.polito.countdown
 
 import android.app.TimePickerDialog
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -39,6 +40,7 @@ class CountdownActivity : AppCompatActivity(){
     private var timeRunning=false
 
     lateinit var progressBar : ProgressBar
+    lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,6 +55,7 @@ class CountdownActivity : AppCompatActivity(){
         layoutTimer=findViewById(R.id.timerLayout)
         labels=findViewById(R.id.pickersLabels)
         progressBar=findViewById(R.id.pbTimer)
+        mediaPlayer = MediaPlayer.create(this, R.raw.alarm )
 
         r.setOnClickListener{resetTimer()}
         b.setOnClickListener {
@@ -134,6 +137,11 @@ class CountdownActivity : AppCompatActivity(){
 
                 updateTimerTextView(0)
                 b.text="Start"
+
+                mediaPlayer.start()
+                mediaPlayer.setLooping(true)
+
+
             }
         }
         if(timeRemaining>0){
@@ -157,8 +165,7 @@ class CountdownActivity : AppCompatActivity(){
         timer.cancel() //va messo sennò corrono più timer in contemporanea, e invece di aggiornarsi ogni secondo lo fa ogni mezzo secondo o meno
         b.text="Start"
         visibleSettingTimer()
-
-
+        mediaPlayer.pause() //in caso di un nuovo timer, alarm riparte dall'inizio
     }
 
     private fun updateTimerTextView(secondsRemaining: Long) {
