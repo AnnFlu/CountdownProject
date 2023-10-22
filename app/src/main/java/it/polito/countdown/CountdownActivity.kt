@@ -25,6 +25,7 @@ import it.polito.countdown.R
 
 class CountdownActivity : AppCompatActivity(){
     lateinit var textViewSec : TextView
+    lateinit var setTimerTxt : TextView
     lateinit var timer : CountDownTimer
     lateinit var circle : ProgressBar
     lateinit var text : TextView
@@ -53,6 +54,7 @@ class CountdownActivity : AppCompatActivity(){
         textViewSec = findViewById(R.id.seconds)
         b = findViewById(R.id.pause)
         r = findViewById(R.id.reset)
+        setTimerTxt= findViewById(R.id.setTimerText)
         setTimerButton= findViewById(R.id.setTimer)
         numPickerHour=findViewById(R.id.numPickerHours)
         numPickerMin=findViewById(R.id.numPickerMin)
@@ -103,12 +105,14 @@ class CountdownActivity : AppCompatActivity(){
         setTimerButton.visibility=View.INVISIBLE
         labels.visibility=View.INVISIBLE
         layoutTimer.visibility=View.VISIBLE
+        setTimerTxt.visibility=View.INVISIBLE
     }
 
     private fun visibleSettingTimer(){
         layoutPicker.visibility=View.VISIBLE
         setTimerButton.visibility=View.VISIBLE
         labels.visibility=View.VISIBLE
+        setTimerTxt.visibility=View.VISIBLE
         layoutTimer.visibility=View.INVISIBLE
 
     }
