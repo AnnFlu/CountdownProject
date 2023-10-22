@@ -131,15 +131,22 @@ class CountdownActivity : AppCompatActivity(){
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.pop_up)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-       //  val timesUpMessage : TextView = dialog.findViewById(R.id.times_up)
+        val timesUpMessage : TextView = dialog.findViewById(R.id.times_up)
         val buttonStop : Button = dialog.findViewById(R.id.stop)
         val buttonReplay : Button = dialog.findViewById(R.id.replay)
 
         buttonStop.setOnClickListener(){
-           // todo
+           dialog.dismiss()
+           mediaPlayer.pause()
+            visibleSettingTimer()
         }
         buttonReplay.setOnClickListener(){
-            // todo
+            dialog.dismiss()
+            mediaPlayer.pause()
+            timeRemaining=timeStart
+            updateTimerTextView(timeStart)
+            progressBar.max=timeStart.toInt()
+            startTimer()
         }
         dialog.show()
     }
@@ -166,21 +173,18 @@ class CountdownActivity : AppCompatActivity(){
                 updateTimerTextView(0)
                 b.text="Start"
 
+                popUpMessage()
                 mediaPlayer.start()
                 mediaPlayer.setLooping(true)
-                popUpMessage()
-
             }
         }
         if(timeRemaining>0){
             timer.start()
             b.text="Pause"
-
         }
         if(!timeRunning){
             timeRunning=true
         }
-
     }
 
     private fun pauseTimer() {
@@ -190,7 +194,12 @@ class CountdownActivity : AppCompatActivity(){
     }
 
     private fun resetTimer(){
-        timer.onFinish()
+        timeRunning=false
+        timeRemaining=0
+        numPickerHour.value = 0
+        numPickerSec.value = 0
+        numPickerMin.value = 0
+        updateTimerTextView(0)
         timer.cancel() //va messo sennò corrono più timer in contemporanea, e invece di aggiornarsi ogni secondo lo fa ogni mezzo secondo o meno
         b.text="Start"
         visibleSettingTimer()
